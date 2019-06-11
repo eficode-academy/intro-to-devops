@@ -1,0 +1,23 @@
+pipeline {
+    agent {
+        label 'docker'
+    }
+    stages {
+        stage("test") {
+            agent {
+                docker {
+                    label 'docker'
+                    image 'python:3'
+                }
+            }
+            steps {
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    sh "pip install -r source/requirements.txt --user"
+                    sh 'python -m pytest'
+                }                
+            }
+        }
+
+    }
+
+}
