@@ -1,0 +1,5 @@
+kubectl apply -f kubernetes-deployment.yml
+
+watch -n 1 kubectl get services,deployment,replicaset,pod
+
+while true; do curl --max-time 2 -s 35.241.189.250/ip; sleep 1; done
