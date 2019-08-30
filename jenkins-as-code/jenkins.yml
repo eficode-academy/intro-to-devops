@@ -26,7 +26,7 @@ credentials:
     domainCredentials:
       - credentials:
           - usernamePassword:
-              scope:          SYSTEM
+              scope:          GLOBAL
               id:             docker-hub-credentials
               username:       ${docker-hub-username}
               password:       ${docker-hub-password}
