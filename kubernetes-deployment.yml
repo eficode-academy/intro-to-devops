@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: flask
-        image: mibias/ida-flask:2
+        image: DOCKER_USERNAME/flask:VERSION
         ports:
         - containerPort: 5000
 

@@ -39,7 +39,7 @@ jobs:
                   scriptPath 'Jenkinsfile'
                   scm {
                     git {
-                        remote { url 'https://github.com/praqma-training/ida-flask-app.git' }
+                        remote { url 'https://github.com/praqma-training/intro-to-devops.git' }
                         branch '*/master'
                         extensions {}
                     }
@@ -54,7 +54,7 @@ jobs:
                   scriptPath 'Jenkinsfile2'
                   scm {
                     git {
-                        remote { url 'https://github.com/praqma-training/ida-flask-app.git' }
+                        remote { url 'https://github.com/praqma-training/intro-to-devops.git' }
                         branch '*/master'
                         extensions {}
                     }
@@ -69,7 +69,7 @@ jobs:
                   scriptPath 'Jenkinsfile3'
                   scm {
                     git {
-                        remote { url 'https://github.com/praqma-training/ida-flask-app.git' }
+                        remote { url 'https://github.com/praqma-training/intro-to-devops.git' }
                         branch '*/master'
                         extensions {}
                     }
