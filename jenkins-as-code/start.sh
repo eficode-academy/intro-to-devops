@@ -1,0 +1,1 @@
+DOCKERPATH=$(which docker) docker-compose up -d

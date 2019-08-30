@@ -1,0 +1,79 @@
+jenkins:
+  systemMessage: "JCasC powered Jenkins for ConnectedApps android and ios builds\n"
+  numExecutors: 2
+  scmCheckoutRetryCount: 0
+
+
+  authorizationStrategy:
+    globalMatrix:
+      grantedPermissions:
+        - "Overall/Administer:anonymous"
+
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false      
+
+  remotingSecurity:
+    enabled: true
+
+unclassified:
+  location:
+    adminAddress: dunmmy@email.com
+    url: http://localhost:8080/
+        
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - usernamePassword:
+              scope:          SYSTEM
+              id:             docker-hub-credentials
+              username:       ${docker-hub-username}
+              password:       ${docker-hub-password}
+
+jobs:
+  - script: >
+      pipelineJob('pipeline1') {
+          definition {
+              cpsScm {
+                  scriptPath 'Jenkinsfile'
+                  scm {
+                    git {
+                        remote { url 'https://github.com/praqma-training/ida-flask-app.git' }
+                        branch '*/master'
+                        extensions {}
+                    }
+                  }
+              }
+          }
+      }
+  - script: >
+      pipelineJob('pipeline2') {
+          definition {
+              cpsScm {
+                  scriptPath 'Jenkinsfile2'
+                  scm {
+                    git {
+                        remote { url 'https://github.com/praqma-training/ida-flask-app.git' }
+                        branch '*/master'
+                        extensions {}
+                    }
+                  }
+              }
+          }
+      }
+  - script: >
+      pipelineJob('pipeline3') {
+          definition {
+              cpsScm {
+                  scriptPath 'Jenkinsfile3'
+                  scm {
+                    git {
+                        remote { url 'https://github.com/praqma-training/ida-flask-app.git' }
+                        branch '*/master'
+                        extensions {}
+                    }
+                  }
+              }
+          }
+      }

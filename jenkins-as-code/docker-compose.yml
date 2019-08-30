@@ -1,0 +1,32 @@
+#Run this file like this: `DOCKERPATH=$(which docker) docker-compose up -d`
+version: '3.3'
+
+services:
+  jenkins: 
+    build: #TODO: Once plugin installation is handled through c-as-c this can be removed and replaced with 'image'.
+      context: .
+    ports: 
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - .:/var/jenkins_conf
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${DOCKERPATH}:/usr/bin/docker
+    user: root
+    restart: always
+    secrets:
+      - docker-hub-username
+      - docker-hub-password
+    environment:
+      - CASC_JENKINS_CONFIG=/var/jenkins_conf/jenkins.yml 
+      - "JAVA_OPTS=-Djenkins.install.runSetupWizard=false -Xmx4096m -Djava.awt.headless=true -Dhudson.model.DirectoryBrowserSupport.CSP=\"default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' 'unsafe-inline' data:;\""
+
+volumes:
+  jenkins_home:
+
+secrets: #Be careful with newlines in your secrets, make sure to remove them before running docker-compose up.
+  docker-hub-username:
+    file: ./secrets/DOCKER_HUB_USERNAME
+  docker-hub-password:
+    file: ./secrets/DOCKER_HUB_PASSWORD

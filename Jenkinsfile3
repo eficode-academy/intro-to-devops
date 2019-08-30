@@ -1,12 +1,14 @@
 pipeline {
-    agent {
-        label 'docker'
+    agent any
+    environment {
+        credentials              = credentials('docker-hub-credentials')
+        dockerhub_username       = "$credentials_USR"
+        dockerhub_password       = "$credentials_PSW"
     }
     stages {
         stage("test") {
             agent {
                 docker {
-                    label 'docker'
                     image 'python:3'
                 }
             }
@@ -20,13 +22,15 @@ pipeline {
 
         stage("Build Dockerfile") {
             steps {
-                sh "docker build -t mibias/ida-flask:$BUILD_NUMBER ."
+                
+                sh "docker build -t -f Dockerfile-with-python-image $dockerhub_username/flask:$BUILD_NUMBER ."
             }
         }
 
         stage("Publish Dockerfile") {
             steps {
-                sh "docker push mibias/ida-flask:$BUILD_NUMBER"
+                sh "docker login -u $dockerhub_username -p $dockerhub_password"
+                sh "docker push $dockerhub_username/flask:$BUILD_NUMBER"
             }
         }
 
